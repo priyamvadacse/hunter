@@ -84,7 +84,6 @@ class UserApiController extends Controller
 
     }
 
-
     // method use for get match nearby locations
     public function getMatchNearbyLocation(Request $request)
     {
@@ -104,12 +103,11 @@ class UserApiController extends Controller
             });
         
         return response()->json(['status' => true, 'message' => 'Success', 'data' => $results]);
-    }        
+    }
     
-
     // method use for save or update like api
     public function likeApiSave(Request $request)
-    {        
+    {
           // Retrieve the authenticated user
           $user = Auth::user();
         //   dd($user);
@@ -183,6 +181,14 @@ class UserApiController extends Controller
                 return response()->json(array('status' => false ,'msg' => "Invalid Request"));
             }
         }
+    }
+
+    public function paymentCheck(Request $request)
+    {
+        print_r($request);
+        exit;
+
+        // $response = json_decode($request);
     }
     
 }

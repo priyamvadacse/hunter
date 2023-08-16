@@ -39,4 +39,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/get-liked-list', [UserApiController::class, 'getLikedList']);
     Route::post('/delete-liked', [UserApiController::class, 'deleteLike']);
 
+    // Payment Callback route
+    Route::post('/ntt-payment-callback', [UserApiController::class, 'paymentCheck']);
 });
