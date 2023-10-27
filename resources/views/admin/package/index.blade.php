@@ -23,7 +23,6 @@
 
             </div>
 
-
             <div class="card">
                 <table class="table table-bordered table-striped">
                     <thead class="table-warning">
@@ -32,7 +31,9 @@
                             <th scope="col">Package Name</th>
                             <th scope="col">Package Duration</th>
                             <th scope="col">Monthly Price</th>
-                            <th scope="col">Price</th>
+                            {{-- <th scope="col">Price</th> --}}
+                            <th scope="col">Like</th>
+                            <th scope="col">Boost</th>
                             {{-- <th scope="col">Image</th> --}}
                             <th scope="col">Action</th>
 
@@ -49,12 +50,11 @@
                                 $getofferdata = \App\Models\Offer::where('package_id', $p->id)->first();
                             @endphp
 
-                            
                             @if (isset($getofferdata->expire_date))
                                 @if ($today <= $getofferdata->expire_date)
                                     @if ($getofferdata)
                                         <td><del> {{ $p->monthly_price }}</del>
-                                            {{ $getofferdata->type == '1' ? $p->monthly_price - $getofferdata->value : $p->monthly_price - ($p->monthly_price * $getofferdata->value) / 100 }}
+                                            {{ $getofferdata->type == 'am' ? $p->monthly_price - $getofferdata->price : $p->monthly_price - ($p->monthly_price * $getofferdata->price) / 100 }}
                                             {{-- {{ $p->monthly_price - $getofferdata->price }} --}}
                                         </td>
                                     @else
@@ -67,12 +67,14 @@
                                 <td>{{ $p->monthly_price }}</td>
                             @endif
 
-                            @if (isset($getofferdata->value))
-                                <td>{{ $p->duration * ($p->monthly_price - $getofferdata->value) }}</td>
+                            {{-- @if (isset($getofferdata->price))
+                                <td>{{ $p->duration * ($p->monthly_price - $getofferdata->price) }}</td>
                             @else
                                 <td>{{ $p->duration * $p->monthly_price }}</td>
-                            @endif
+                            @endif --}}
 
+                            <td>{{ $p->like }}</td>
+                            <td>{{ $p->boost }}</td>
                             {{-- <td>
                                 <img src="{{ asset($p->image) }}" alt="" width="70px">
                                 {{$p->image}}
@@ -80,11 +82,10 @@
                             <td> <a data-id="{{ $p->id }}"
                                     class="btn btn-danger btn-sm delete_package zmdi zmdi-delete"></a>
                                 <a href="#" class="btn btn-warning btn-sm edit_package zmdi zmdi-edit"
-                                    data-name={{ $p->package }}
-                                    data-id={{ $p->id }}
-                                    data-price={{ $p->monthly_price }} 
-                                    data-duration={{ $p->duration }}
-                                    data-type={{ $p->type }}></a>
+                                    data-name={{ $p->package }} data-id={{ $p->id }}
+                                    data-price={{ $p->monthly_price }} data-duration={{ $p->duration }}
+                                    data-type={{ $p->type }} data-like={{ $p->like }}
+                                    data-boost={{ $p->boost }}></a>
                             </td>
                         </tr>
                     @endforeach
@@ -133,7 +134,14 @@
                             <label for="exampleInputEmail1">Price</label>
                             <input type="text" class="form-control" placeholder="Enter Monthly Price" name="price">
                         </div>
-
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Like</label>
+                            <input type="text" class="form-control" placeholder="Enter like" name="like">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Boost</label>
+                            <input type="number" class="form-control" placeholder="Enter like" name="boost">
+                        </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="type">
                             <label class="form-check-label" for="exampleCheck1">Set this as base package</label>
@@ -195,6 +203,16 @@
                             <label for="exampleInputEmail1">Monthly Price</label>
                             <input type="text" class="form-control" placeholder="Enter Monthly Price" name="price"
                                 id="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Like</label>
+                            <input type="text" class="form-control" placeholder="Enter like" name="like_edit"
+                                id="like_id">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Boost</label>
+                            <input type="number" class="form-control" placeholder="Enter like" name="boost_edit"
+                                id="boost_id">
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="package_checkbox" name="type">
@@ -313,6 +331,8 @@
                 var id = $(this).data('id');
                 var price = $(this).data('price');
                 var duration = $(this).data('duration');
+                var like = $(this).data('like')
+                var boost = $(this).data('boost')
                 var type = $(this).data('type');
                 if (type == 1) {
                     // alert('Janu')
@@ -324,6 +344,8 @@
                 $('#edit_id').val(id);
                 $('#price').val(price);
                 $('#duration').val(duration);
+                $('#like_id').val(like);
+                $('#boost_id').val(boost);
                 // $('#type').val(type);
 
                 $('#editModal').modal('toggle')

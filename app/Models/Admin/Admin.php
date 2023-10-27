@@ -16,4 +16,9 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function permissions()
+    {
+        return $this->hasMany(Module_permission::class);
+    }
 }

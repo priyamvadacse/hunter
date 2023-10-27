@@ -3,68 +3,72 @@
 @endsection
 
 @section('content')
-<section class="content">
-    <div class="">
-        <div class="block-header">
-            <div class="row">
-                <div class="col-lg-7 col-md-6 col-sm-12">
-                    <h2>Dashboard</h2>
-                    <ul class="breadcrumb">
-                        {{-- <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i> Aero</a></li> --}}
-                        {{-- <li class="breadcrumb-item active">Dashboard 1</li> --}}
-                    </ul>
-                    <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
-                </div>
-                <div class="col-lg-5 col-md-6 col-sm-12">
-                    <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+    <section class="content">
+        <div class="">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-12">
+                        <h2>Dashboard</h2>
+                        <ul class="breadcrumb">
+                            {{-- <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i> Aero</a></li> --}}
+                            {{-- <li class="breadcrumb-item active">Dashboard 1</li> --}}
+                        </ul>
+                        <button class="btn btn-primary btn-icon mobile_menu" type="button"><i
+                                class="zmdi zmdi-sort-amount-desc"></i></button>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn" type="button"><i
+                                class="zmdi zmdi-arrow-right"></i></button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row clearfix">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card widget_2 ">
-                        <a href="{{route('admin.active_user.list')}}">
-                            <div class="body">
-                                <h6>Active Users</h6>
-                                <h2>{{$active}}</small></h2>
-                                {{-- <small>2% higher than last month</small>
+
+            @if ($user->role == 'Super Admin' || $user->permissions[0]->permission == 1)
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card widget_2 ">
+                                <a href="{{ route('admin.active_user.list') }}">
+                                    <div class="body">
+                                        <h6>Active Users</h6>
+                                        <h2>{{ $active }}</small></h2>
+                                        {{-- <small>2% higher than last month</small>
                                 <div class="progress">
                                     <div class="progress-bar l-amber" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"></div>
                                 </div> --}}
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card widget_2 ">
-                        <a href="{{route('admin.inactive_user.list')}}">
-                            <div class="body">
-                                <h6>Inactive Users</h6>
-                                <h2>{{$inactive}}</small></h2>
-                                {{-- <small>2% higher than last month</small>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card widget_2 ">
+                                <a href="{{ route('admin.inactive_user.list') }}">
+                                    <div class="body">
+                                        <h6>Inactive Users</h6>
+                                        <h2>{{ $inactive }}</small></h2>
+                                        {{-- <small>2% higher than last month</small>
                                 <div class="progress">
                                     <div class="progress-bar l-amber" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"></div>
                                 </div> --}}
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card widget_2 ">
-                        <a href="{{route('admin.verified_user.list')}}">
-                            <div class="body">
-                                <h6>Verified Users</h6>
-                                <h2>{{$verified}}</h2>
-                                {{-- <small>6% higher than last month</small>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card widget_2 ">
+                                <a href="{{ route('admin.verified_user.list') }}">
+                                    <div class="body">
+                                        <h6>Verified Users</h6>
+                                        <h2>{{ $verified }}</h2>
+                                        {{-- <small>6% higher than last month</small>
                                 <div class="progress">
                                     <div class="progress-bar l-blue" role="progressbar" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100" style="width: 38%;"></div>
                                 </div> --}}
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                </div>
-                {{-- <div class="col-lg-3 col-md-6 col-sm-12">
+                        </div>
+                        {{-- <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card widget_2 ">
                         <div class="body">
                             <h6>Total Flagged Users</h6>
@@ -76,45 +80,45 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card widget_2">
-                        <div class="body">
-                            <h6>Total Blocked Users</h6>
-                            <h2>8</h2>
-                            {{-- <small>Total Registered Domain</small>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card widget_2">
+                                <div class="body">
+                                    <h6>Total Blocked Users</h6>
+                                    <h2>8</h2>
+                                    {{-- <small>Total Registered Domain</small>
                             <div class="progress">
                                 <div class="progress-bar l-green" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100" style="width: 89%;"></div>
                             </div> --}}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card widget_2">
-                        <div class="body">
-                            <h6>Daily Payment</h6>
-                            <h2>8</h2>
-                            {{-- <small>Total Registered Domain</small>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card widget_2">
+                                <div class="body">
+                                    <h6>Daily Payment</h6>
+                                    <h2>8</h2>
+                                    {{-- <small>Total Registered Domain</small>
                             <div class="progress">
                                 <div class="progress-bar l-green" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100" style="width: 89%;"></div>
                             </div> --}}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card widget_2">
-                        <div class="body">
-                            <h6>Monthly Payment</h6>
-                            <h2>8</h2>
-                            {{-- <small>Total Registered Domain</small>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card widget_2">
+                                <div class="body">
+                                    <h6>Monthly Payment</h6>
+                                    <h2>8</h2>
+                                    {{-- <small>Total Registered Domain</small>
                             <div class="progress">
                                 <div class="progress-bar l-green" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100" style="width: 89%;"></div>
                             </div> --}}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            {{-- <div class="row clearfix">
+
+                    {{-- <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="header">
@@ -186,7 +190,7 @@
                     </div>
                 </div>
             </div> --}}
-            {{-- <div class="row clearfix">
+                    {{-- <div class="row clearfix">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card mcard_4">
                         <div class="body">
@@ -307,7 +311,7 @@
                     </div>
                 </div>
             </div> --}}
-            {{-- <div class="row clearfix">
+                    {{-- <div class="row clearfix">
                 <div class="col-md-12 col-lg-8">
                     <div class="card">
                         <div class="header">
@@ -354,7 +358,7 @@
                     </div>
                 </div>
             </div> --}}
-            {{-- <div class="row clearfix">
+                    {{-- <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="header">
@@ -398,10 +402,11 @@
                     </div>
                 </div>
             </div> --}}
-        </div>
+                </div>
+            @endif
 
-    </div>
-    {{-- <footer class="main-footer">
+        </div>
+        {{-- <footer class="main-footer">
         <div class="footer-left">
           Copyright &copy; 2022 <div class="bullet"></div> Design By <a href="#">xcrino</a>
         </div>
@@ -409,11 +414,9 @@
         </div>
       </footer> --}}
 
-</section>
+    </section>
 
 @section('extra_js')
-<script>
-
-</script>
+    <script></script>
 @endsection
 @endsection

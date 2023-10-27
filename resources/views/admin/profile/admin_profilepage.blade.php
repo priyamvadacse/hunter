@@ -41,9 +41,10 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="card mcard_3">
                             <div class="body">
+                                {{-- @if($user->role == 'Super Admin' || $user->permissions[0]->permission == 1) --}}
 
                                 <div class="user-info">
-                                    <img src="{{ url(Auth::guard('admin')->user()->image) }}" alt="User"
+                                    <img src="{{ url(Auth::guard('admin')->user()->image) }}" alt="Dating Apps In India 2023"
                                         class="rounded-circle shadow" width="200px" height="200px">
                                     <div class="detail">
 
@@ -53,6 +54,7 @@
                                         <h5>{{ Auth::guard('admin')->user()->email }}</h5>
                                     </div>
                                 </div>
+                                {{-- @endif --}}
 
                             </div>
                         </div>

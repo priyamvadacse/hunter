@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="col-lg-6 mb-4 ml-4">
                                         <div class="d-flex justify-content-center"><img style="border-radius: 25px"
-                                                src="{{ asset('assets/logo/hunttrlogo.jpg') }}" alt=""
+                                                src="{{ asset('assets/logo/logo.png') }}" alt="Most Trusted Dating Site In India"
                                                 width="81%">
                                         </div>
                                     </div>

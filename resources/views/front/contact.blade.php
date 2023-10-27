@@ -38,13 +38,13 @@
         </div>
         <div class="section-wrapper">
             <div class="row justify-content-center g-4">
-                @if(!empty($contactUs))
+                {{-- @if(!empty($contactUs))
                 <p>
                     {!! $contactUs->contact !!}
                 </p>
                 @else
                 <p></p>
-                @endif
+                @endif --}}
                 {{-- <div class="col-lg-4 col-sm-6 col-12">
                     <div class="contact-item text-center">
                         <div class="contact-thumb mb-4">
@@ -52,12 +52,33 @@
                         </div>
                         <div class="contact-content">
                             <h6 class="title">Office Address</h6>
-                            <p>1201 park street, Fifth Avenue</p>
+                            <p>{!! $contactUs->contact !!}</p>
                         </div>
                     </div>
                 </div>
-                --}}
-                
+                <div class="col-lg-4 col-sm-6 col-12 " >
+                    <div class="contact-item text-center" style="height:300px;">
+                        <div class="contact-thumb mb-4">
+                            <img src="{{asset('front/assets/images/contact/icon/02.png')}}" alt="contact-thumb">
+                        </div>
+                        <div class="contact-content">
+                            <h6 class="title">Phone number</h6>
+                            <p> +91 {{$contactUs->phone_number}}</p>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="col-lg-4 col-sm-6 col-12" >
+                    <div class="contact-item text-center" style="height:300px;">
+                        <div class="contact-thumb mb-4">
+                            <img src="{{asset('front/assets/images/contact/icon/03.png')}}" alt="Local dating">
+                        </div>
+                        <div class="contact-content">
+                            <h6 class="title">Send Email</h6>
+                            <p>{{$contactUs->email}}</p>
+                        </div>
+                    </div>
+                </div>
+                               
             </div>
         </div>
     </div>

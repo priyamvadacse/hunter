@@ -11,69 +11,51 @@
                     <div class="d-flex justify-content-between">
                         Unverified List
                         {{-- <a class="btn btn-sm btn-primary text-white" data-toggle="modal" data-target="#usermodal">Verifide --}}
-                            {{-- Offers</a> --}}
+                        {{-- Offers</a> --}}
                     </div>
                 </div>
 
             </div>
             <div class="card">
-                <table class="table table-bordered table-striped" id="kyc_verified_user">
+                <table class="table table-bordered table-striped" id="kyc_unverified_user">
                     <thead class="table-warning">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Aadhar</th>
-                            <th scope="col">Pan</th>
-                            <th scope="col">Isverified</th>
-
-
-
+                            <th scope="col">Image</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Status</th>
                         </tr>
-
                     </thead>
-                    <tr>
-                        <td>1</td>
-                        <td>Vikas</td>
-                        <td><img src="{{asset('front/images/kyc/aadhar.jpg')}}" alt="aadhar"></td>
-                        <td><img src="{{asset('front/images/kyc/pan.jpg')}}" alt="Pan"></td>
-                        <td>Unverified</td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Ram</td>
-                        <td><img src="{{asset('front/images/kyc/aadhar1.jpg')}}" alt="dfgh"></td>
-                        <td><img src="{{asset('front/images/kyc/pan1.jpg')}}" alt="pan"></td>
-                        <td>Unverified</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Himanshu</td>
-                        <td><img src="{{asset('front/images/kyc/aadhar.jpg')}}" alt="aadher"></td>
-                        <td><img src="{{asset('front/images/kyc/pan.jpg')}}" alt="pan"></td>
-                        <td>Unverified</td>
-                    </tr>
-
-
                     <tbody>
-                        
 
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
+@endsection
 
+
+@section('libraries')
+<!-- Jquery DataTable Plugin Js -->
+<script src="{{asset('assets/bundles/datatablescripts.bundle.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.flash.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js')}}"></script>
 @endsection
 
 @section('extra_js')
-<script>
 
-$(function(){
-    //alert('Hello');
-    //kyc verified  datatable code
-    $('#kyc_verified_user').DataTable({
-               "processing": true,
+    <script>
+        $(function() {
+            
+            $('#kyc_unverified_user').DataTable({
+                "processing": true,
                 pageLength: 10,
                 "serverSide": true,
                 "bDestroy": true,
@@ -81,11 +63,8 @@ $(function(){
                     'selectRow': true
                 },
                 "ajax": {
-                    url: "{{route('admin.kyc.verified-user-ajax')}}",
-                    "type": "POST",
-                    "data": function(d) {
-                        d._token = "{{ csrf_token() }}";
-                    },
+                    url: "{{ route('admin.kyc.unverified_listuser-ajax') }}",                    
+                   
                     dataFilter: function(data) {
                         var json = jQuery.parseJSON(data);
                         json.recordsTotal = json.recordsTotal;
@@ -105,52 +84,39 @@ $(function(){
                     },
                     {
                         "targets": 1,
-                        "name": "user_id",
+                        "name": "first_name",
                         'searchable': true,
                         'orderable': false
                     },
                     {
                         "targets": 2,
-                        "name": "aadhar",
-                        'searchable':false,
+                        "name": "image",
+                        'searchable': false,
                         'orderable': false
                     },
                     {
                         "targets": 3,
-                        "name": "pan",
-                        'searchable': false,
-                        'orderable': false
+                        "name": "email",
+                        'searchable': true,
+                        'orderable': true
                     },
 
                     {
                         "targets": 4,
-                        "name": "is_verify",
-                        'searchable': false,
-                        'orderable':false,
+                        "name": "phone",
+                        'searchable': true,
+                        'orderable': true,
                     },
-                    // {
-                    //     "targets": 5,
-                    //     "name": "description",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-                    // {
-                    //     "targets": 6,
-                    //     "name": "status",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-                    // {
-                    //     "targets": 7,
-                    //     "name": "action",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-                   
-
+                  
+                    {
+                        "targets": 5,
+                        "name": "status",
+                        'searchable': false,
+                        'orderable': false,
+                    },
 
                 ]
-    })
-})
-</script>  
+            })
+        })
+    </script>
 @endsection

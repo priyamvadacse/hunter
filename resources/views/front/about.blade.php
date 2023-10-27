@@ -37,7 +37,7 @@
         <div class="row justify-content-center g-4 align-items-center">
             <div class="col-lg-6 col-12">
                 <div class="about__thumb">
-                    <img src="{{asset('front/assets/images/about/01.png')}}" alt="dating thumb">
+                    <img src="{{asset('front/assets/images/about/01.png')}}" alt="Dating profiles">
                 </div>
             </div>
             <div class="col-lg-6 col-12">

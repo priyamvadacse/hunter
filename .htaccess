@@ -18,4 +18,15 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # Redirect 404 to homepge
+    # Redirect www to non-www (or vice versa)
+    RewriteCond %{HTTP_HOST} ^www.hunttr.com [NC]
+    RewriteRule ^(.*)$ https://hunttr.com/$1 [L,R=301]
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-SSL} !on
+    RewriteCond %{HTTP_HOST} ^www\.hunttr\.com$
+    RewriteRule ^/?$ "https\:\/\/hunttr\.com\/" [R=301,L]
+    # ErrorDocument 404 http://localhost/hunttr.com/
 </IfModule>

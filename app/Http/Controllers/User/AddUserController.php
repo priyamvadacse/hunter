@@ -5,6 +5,12 @@ namespace App\Http\Controllers\User;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\BoostPackage;
+use App\Models\Admin\SubscriptionPackage;
+use App\Models\UserPlan;
+use Brick\Math\BigInteger;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -51,39 +57,42 @@ class AddUserController extends Controller
 
         // $total = User::orWhere('first_name', 'like', '%' . $search . '%')
         //     ->orWhere('created_at', 'like', '%' . $search . '%');
-        
+
         $category = User::orWhere('first_name', 'like', '%' . $search . '%');
-            
+
         $total = $category->count();
+        
         $start_date = $request->filled('from_date') ? date('Y-m-d', strtotime($request->input('from_date'))) : NULL;
         $end_date = $request->filled('end_date') ? date('Y-m-d', strtotime($request->input('end_date'))) : NULL;
 
         //  if (isset($_GET['from_date']) && isset($_GET['end_date']) && !is_null($_GET['from_date']) && !is_null($_GET['end_date'])) {
-        if (!is_null($start_date) && !is_null($end_date)){
+        if (!is_null($start_date) && !is_null($end_date)) {
             // echo "Hello";
             // exit;
             // $start_date = date('Y-m-d', strtotime($_GET['from_date']));
             // $end_date = date('Y-m-d', strtotime($_GET['end_date']));
 
-            $category = $category->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
+            $category = $category->whereDate('created_at', '>=', $start_date)->whereDate('created_at', '<=', $end_date);
             $total = $category->count();
-            
         }
-        
+
         $category = $category->offset($ofset)->limit($limit)
-        ->orderBy($nameOrder, $orderType)->get();
+            ->orderBy('id', 'desc')->get();
         $i = 1 + $ofset;
         $data = [];
 
         foreach ($category as $cate) {
             $url = route('admin.user.edit', ['id' => $cate->id]);
-            $status = '<button class="statusVerifiedClick btn ' . ($cate->status == 'ACTIVE' ? "btn-success btn-sm" : "btn-danger btn-sm") . '  " data-status="' . ($cate->status == 'ACTIVE'  ? 'INACTIVE' : 'ACTIVE') . '" data-id="' . $cate->id . '">' . ($cate->status == 'ACTIVE' ? "ACTIVE" : "INACTIVE") . '</button>
-                       ';
+            $status = '<button class="statusVerifiedClick btn ' . ($cate->status == 'ACTIVE' ? "btn-success btn-sm" : "btn-danger btn-sm") . '  " data-status="' . ($cate->status == 'ACTIVE'  ? 'INACTIVE' : 'ACTIVE') . '" data-id="' . $cate->id . '">' . ($cate->status == 'ACTIVE' ? "ACTIVE" : "INACTIVE") . '</button> ';
+            $dummyImageURL = url('public/front/images/kyc/dummy_man.png');
+            $imageURL = !empty($cate->pic1) ? asset($cate->pic1) : $dummyImageURL;
             $data[] = array(
                 $i++,
                 $cate->first_name,
                 $cate->last_name,
-                '<img class="img-fluid" src="' . asset($cate->pic1) . '" width="70px;">',
+                
+                '<img class="img-fluid" src="' . $imageURL . '" width="70px;">',
+                // '<img class="img-fluid" src="' . asset($cate->pic1) . '" width="70px;">',
                 $cate->email,
                 $cate->phone,
                 $cate->gender == 'male' ? 'M' : 'F',
@@ -384,7 +393,7 @@ class AddUserController extends Controller
             'first_name' => 'required',
             'dob' => 'required',
             'gender' => 'required',
-            'pic1' => 'required',
+            // 'pic1' => 'required',
             "email" => 'required|email|max:128|unique:users,email,' . $request->id,
             "phone" => 'required|max:11|min:9|unique:users,phone,' . $request->id,
         ];
@@ -404,6 +413,8 @@ class AddUserController extends Controller
             $favicon = uniqid(time()) . '.' . $request->pic1->extension();
             $request->pic1->move(public_path('assets/user/assets/img/'), $favicon);
             $favicon = "/assets/user/assets/img/" . $favicon;
+        }else{
+            $favicon = $user->pic1 ;
         }
         // dd($favicon);
         $user->pic1  = $favicon;
@@ -447,6 +458,7 @@ class AddUserController extends Controller
 
     public function csv(Request $request)
     {
+        
 
         if ($request->file('file_csv') != null) {
             // $file = $request->file("file_csv");
@@ -458,34 +470,26 @@ class AddUserController extends Controller
             while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
                 $num = count($filedata);
 
-
                 for ($c = 0; $c < $num; $c++) {
                     $importData_arr[$i][] = $filedata[$c];
                 }
                 $i++;
             }
-            fclose($file);
-
-
-
+            fclose($file);            
+            
             foreach ($importData_arr as $key => $d) {
                 $dataCsv = new User();
-                $dataCsv->first_name                 = $d[0];
-                $dataCsv->last_name                 = $d[1];
-                $dataCsv->email           = $d[2];
-                $dataCsv->phone     = $d[3];
-                $dataCsv->dob        = date('Y-m-d', strtotime($d[4]));
-                $dataCsv->gender      = $d[5];
-                $dataCsv->status           = $d[6];
-                $dataCsv->interested_in           = $d[7];
-                $dataCsv->verification           = $d[8];
-                $dataCsv->relationship_type           = $d[9];
-
-
-
+                $dataCsv->first_name             = $d[0];
+                $dataCsv->last_name              = $d[1];
+                $dataCsv->email                  = $d[2];
+                $dataCsv->phone                  = (int)$d[3];
+                $dataCsv->dob                    = date('Y-m-d', strtotime($d[4]));               
+                $dataCsv->gender                 = $d[5];
+                $dataCsv->interested_in          = $d[6];                                                
+                $dataCsv->interested_min_age     = $d[7];
+                $dataCsv->interested_max_age     = $d[8];                               
                 $result = $dataCsv->save();
             }
-
 
             if ($result) {
                 return response()->json(array('status' => true, 'msg' => "Wow, CSV File Data Successfully Import!", 'location' => route('admin.user.list')));
@@ -499,8 +503,25 @@ class AddUserController extends Controller
 
     public function csvExport(Request $request)
     {
+
+        if (isset($request->value)) {
+            $search = $request->value;
+        } else {
+            $search = '';
+        }
+
         $fileName = 'users.csv';
-        $tasks    =  User::all();
+
+        $userdata = User::orWhere(function ($query) use ($search) {
+            $query->orWhere('users.first_name', 'like', '%' . $search . '%');
+            $query->orWhere('users.last_name', 'like', '%' . $search . '%');
+        });
+
+        if ($request->start_date != '' && $request->end_date != '') {
+
+            $userdata = $userdata->whereDate('users.created_at', '>=', $request->start_date)->whereDate('users.created_at', '<=', $request->end_date);
+        }
+        $tasks = $userdata->get();
 
         $headers = array(
 
@@ -513,7 +534,10 @@ class AddUserController extends Controller
 
         );
 
-        $columns = array('first_name', 'last_name', 'email', '	pic1', 'phone', 'dob', 'gender', 'interested_in', 'status', 'verification', 'relationship_type');
+        $columns = array(
+            'First Name', 'Last Name', 'Email',  'Phone', 'DOB', 'gender', 'Interested In', 'Status', 'Mobile Verified', 'Email Verified', 'image Verified',
+            'Interested Min Age', 'Interested Max Age',  'Address', 'Education', 'Work'
+        );
 
         $callback = function () use ($tasks, $columns) {
 
@@ -524,16 +548,25 @@ class AddUserController extends Controller
                 $row['first_name']  = $task->first_name;
                 $row['last_name']  = $task->last_name;
                 $row['email']  = $task->email;
-                $row['pic1']  = $task->pic1;
                 $row['phone']  = $task->phone;
                 $row['dob']  = $task->dob;
                 $row['gender']  = $task->gender;
                 $row['status']  = $task->status;
                 $row['interested_in']  = $task->interested_in;
-                $row['verification']  = $task->verification;
-                $row['relationship_type']  = $task->relationship_type;
+                $row['mobile_verified']  = $task->mobile_verified;
+                $row['email_verified']  = $task->email_verified;
+                $row['verify_image']  = $task->verify_image;
+                $row['interested_min_age']  = $task->interested_min_age;
+                $row['interested_max_age']  = $task->interested_max_age;
+                $row['address']  = $task->address;
+                $row['education']  = $task->education;
+                $row['work']  = $task->work;
 
-                fputcsv($file, array($row['first_name'], $row['last_name'], $row['email'], $row['pic1'], $row['phone'], $row['dob'], $row['gender'], $row['interested_in'], $row['status'], $row['verification'], $row['relationship_type']));
+                fputcsv($file, array(
+                    $row['first_name'], $row['last_name'], $row['email'],  $row['phone'],
+                    $row['dob'], $row['gender'], $row['interested_in'], $row['status'], $row['mobile_verified'], $row['email_verified'],
+                    $row['verify_image'], $row['interested_min_age'], $row['interested_max_age'], $row['address'], $row['education'], $row['work']
+                ));
             }
 
             fclose($file);
@@ -543,11 +576,172 @@ class AddUserController extends Controller
     }
 
     public function paidUsaerlist()
-    {
+    {        
+
         return view('users.paid_user');
+    }
+
+    public function userPaidList()
+    {
+        if (isset($_GET['search']['value'])) {
+            $search = $_GET['search']['value'];
+        } else {
+            $search = '';
+        }
+        if (isset($_GET['length'])) {
+            $limit = $_GET['length'];
+        } else {
+            $limit = 10;
+        }
+
+        if (isset($_GET['start'])) {
+            $ofset = $_GET['start'];
+        } else {
+            $ofset = 0;
+        }
+
+        $orderType = $_GET['order'][0]['dir'];
+        $nameOrder = $_GET['columns'][$_GET['order'][0]['column']]['name'];
+
+        $searchKeyword = $search;
+
+        $packageData = DB::table('payment_transactions')
+            ->select('payment_transactions.*', 'users.first_name', 'users.last_name' ,'users.email','users.phone','users.gender','users.interested_in')
+            ->join('users', 'users.id', '=', 'payment_transactions.user_id')            
+            ->where(function ($query) use ($searchKeyword) {
+                $query->where('users.id', 'LIKE', "%{$searchKeyword}%")
+                    ->orWhere('users.first_name', 'LIKE', "%{$searchKeyword}%")
+                    ->orWhere('users.last_name', 'LIKE', "%{$searchKeyword}%");
+            });
+
+            $total = $packageData->count();
+
+            $category =  $packageData->offset($ofset)
+            ->limit($limit)
+            ->orderBy($nameOrder, $orderType)
+            ->get();
+
+      
+
+        $i = 1 + $ofset;
+        $data = [];
+
+        foreach ($category as $cate) {            
+
+            $package = NULL;
+            if ($cate->package_id === null && $cate->boost_id === null) {
+                // Handle the case when both package_id and boost_id are null
+            } elseif ($cate->package_id === null) {
+                $package = BoostPackage::select('boost_title', 'boost_plans.boost_status as status')
+                ->join('boost_plans', 'boost_plans.boost_id', '=', 'boost_packages.id')->where('boost_packages.id', $cate->boost_id)->first();
+            } else {
+                $package = SubscriptionPackage::select('package','user_plans.package_status')
+                ->join('user_plans', 'user_plans.package_id', '=', 'subscription_packages.id')->where('subscription_packages.id', $cate->package_id)->first();
+            }
+
+            // Access the package name based on the condition
+            $packageName = $package ? ($cate->package_id === null ? $package->boost_title : $package->package) : '';
+            $packageStatus = $package ? ($cate->package_id === null ? $package->status : $package->package_status) : '';
+            
+            $data[] = array(
+                $i++,
+                $cate->first_name ,
+                $cate->last_name,
+                $cate->email,
+                $cate->phone,
+                $cate->gender,
+                $cate->interested_in,
+                $packageName,
+                Carbon::parse($cate->created_at)->format('Y-m-d'),
+                '<button class="btn btn-success btn-sm ">success</button>',    
+                $packageStatus         
+                // $cate->package_status
+
+                // '<a  href=' . $url . ' class="editCategory btn btn-info btn-sm "  data-id="' . $cate->id . '"><i class="zmdi zmdi-edit"></i></a> 
+                //     <a href="#" class="btn btn-danger btn-sm delete_user" data-id="' . $cate->id . '"><i class="zmdi zmdi-delete"></i></a>',
+                // $cate->created_at->format('y-m-d'),
+
+            );
+        }
+        $records['recordsTotal'] = $total;
+        $records['recordsFiltered'] =  $total;
+        $records['data'] = $data;
+        echo json_encode($records);
     }
     public function unPaidusaerList()
     {
         return view('users.unpaid_user');
+    }
+
+    public function unPaidusaerListAjax()
+    {
+     
+        if (isset($_GET['search']['value'])) {
+            $search = $_GET['search']['value'];
+        } else {
+            $search = '';
+        }
+        if (isset($_GET['length'])) {
+            $limit = $_GET['length'];
+        } else {
+            $limit = 10;
+        }
+
+        if (isset($_GET['start'])) {
+            $ofset = $_GET['start'];
+        } else {
+            $ofset = 0;
+        }
+
+        $orderType = $_GET['order'][0]['dir'];
+        $nameOrder = $_GET['columns'][$_GET['order'][0]['column']]['name'];
+        
+        $category =   User::select('users.*')    
+        // ->leftJoin('payment_transactions', 'users.id', '=', 'payment_transactions.User_id')    
+        ->where(function ($query) use ($search) {
+                $query->where('users.id',      'LIKE', '%' . $search . '%')
+                ->orWhere('users.first_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('users.last_name', 'LIKE', '%'. $search . '%');
+
+            })->whereNotIn('users.id', function ($subquery) {
+                $subquery->select('user_id')
+                    ->from('payment_transactions');
+            });
+            // ->whereNull('payment_transactions.User_id');
+
+            $total = $category->count();
+
+           $categorys= $category
+            ->offset($ofset)
+            ->limit($limit)
+            ->orderBy($nameOrder, $orderType)
+            ->get();
+                        
+            
+            
+        $i = 1 + $ofset;
+        $data = [];
+
+        foreach ($categorys as $cate) {            
+            
+            $data[] = array(
+                $i++,
+                $cate->first_name ,
+                $cate->last_name,
+                $cate->email,
+                $cate->phone,
+                $cate->gender,
+                $cate->interested_in,                
+                Carbon::parse($cate->created_at)->format('Y-m-d'),
+
+                '<button class="btn btn-info btn-sm ">Unpaid</button>',                
+                $cate->status               
+
+            );
+        }
+        $records['recordsTotal'] = $total;
+        $records['recordsFiltered'] =  $total;
+        $records['data'] = $data;
+        echo json_encode($records);
     }
 }

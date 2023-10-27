@@ -22,21 +22,21 @@
                             {{-- <a href="{{ route('admin.user') }}" class="btn btn-sm btn-primary">Add User</a> --}}
                             <a class="btn btn-sm btn-primary text-white" data-toggle="modal" data-target="#usermodal">CSV
                                 Import</a>
-                            <span data-href="{{ route('admin.csvexport') }}" id="export" class="btn btn-primary btn-sm"
-                                onclick="exportTasks(event.target);">CSV Export</span>
-
-
-                                
+                            
+                            {{-- <span data-href="{{ route('admin.csvexport') }}" id="export" class="btn btn-primary btn-sm"
+                                onclick="exportTasks(event.target);">CSV Export</span>                                 --}}
 
                         </div>
                     </div>
                     <div>
-                        <form >
+                        <form action="{{ route('admin.csvexport') }}", method="POST">
+                            <button  id="export" type="submit" class="btn btn-success btn-sm float-right mx-4 " onclick="exportTasks(event.target);">Export</button>
+                            <input type="hidden" id="searchType" name="value">
                             @csrf
                             From:
-                            <input type="date"  id="start_date">
+                            <input type="date"  id="start_date" name="start_date">
                             To:
-                            <input type="date" id="end_date">
+                            <input type="date" id="end_date" name="end_date"> 
                            <button type="submit" class="btn btn-primary btn-sm" id="filter_date">Submit</button>
                         </form>
                     </div>
@@ -104,9 +104,8 @@
                         {{-- <div class="col-6"> --}}
 
                         {{-- </div> --}}
-
-
-
+                        <strong>Should Be In The CSV File </strong><br>
+                        <span class="form-group text-warning ">( First Name, Last Name, Email, Phone, DOB, Gender, Interested In, Interested Min Age, Interested Max Age, ) </span>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Csv Bluk</label>
                             <input type="file" class="form-control " name="file_csv">
@@ -378,8 +377,20 @@
             });
         })
 
+        function exportTasks(target) {
+            // Prevent the default form submission
+            event.preventDefault();
 
+            // Get the values for the start_date and end_date inputs
+            // var startDate = document.getElementById('start_date').value;
+            // var endDate = document.getElementById('end_date').value;
 
+            // // Assign the values to the hidden input field "value"
+            // document.getElementById('searchType').value = startDate + ' to ' + endDate;
+
+            // Submit the form
+            target.closest('form').submit();
+        }
 
         // function exportTasks(_this) {
         //     let _url = $(_this).data('href');

@@ -17,6 +17,8 @@ class AdminProfileController extends Controller
    public function adminProfilePage()
    {
     // dd(url(Auth::guard('admin')->user()->image));
+
+    
     return view('admin.profile.admin_profilepage');
    }
 
@@ -39,6 +41,8 @@ class AdminProfileController extends Controller
 
         $image = Admin::find($request->id);
 
+        // $image = auth('admin')->user();
+        // dd($user);
 
         if ($request->file('file') != "") {
 

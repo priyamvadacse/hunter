@@ -10,7 +10,9 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
-        "maatwebsite/excel": "^1.1"
+        "maatwebsite/excel": "^1.1",
+        "razorpay/razorpay": "^2.8",
+        "webup/laravel-sendinblue": "^3.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

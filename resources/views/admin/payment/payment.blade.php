@@ -9,7 +9,7 @@
             <div class="mb-4">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        Payment List 
+                        Payment List
                         {{-- <a  href="{{route('admin.invoice')}}" class="btn btn-sm btn-primary text-white" >invoice
                         </a> --}}
                     </div>
@@ -28,51 +28,20 @@
                             <th scope="col">Payment Status</th>
                             <th scope="col">Invoice</th>
 
-
-
                         </tr>
-
-
                     </thead>
-
-
-
                     <tbody>
-
-                        <tr>
+                        {{-- <tr>
                             <td>1</td>
                             <td>Himanshu</td>
                             <td>Gold</td>
                             <td>25/05/2023</td>
                             <td>1496333332</td>
                             <td><button class="btn btn-success btn-sm ">success</button></td>
-                            <td><a  href="{{route('admin.invoice')}}" class="btn btn-sm btn-primary text-white" >View
-                            </a></td>
-                            
-                        </tr>
+                            <td><a href="{{ route('admin.invoice') }}" class="btn btn-sm btn-primary text-white">View
+                                </a></td>
 
-                        <tr>
-                            <td>2</td>
-                            <td>Khushi</td>
-                            <td>VIP</td>
-                            <td>25/05/2023</td>
-                            <td>1474123785</td>
-                            <td><button class="btn btn-success btn-sm ">success</button></td>
-                            <td><a  href="{{route('admin.invoice')}}" class="btn btn-sm btn-primary text-white" >View
-                            </a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Priyamvada</td>
-                            <td>Silver</td>
-                            <td>25/05/2023</td>
-                            <td>1469874123</td>
-                            <td><button class="btn btn-success btn-sm ">success</button></td>
-                            <td><a  href="{{route('admin.invoice')}}" class="btn btn-sm btn-primary text-white" >View
-                            </a></td>
-                        </tr>
-
-
+                        </tr> --}}
 
                     </tbody>
                 </table>
@@ -81,10 +50,22 @@
     </section>
 @endsection
 
+@section('libraries')
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{{ asset('assets/bundles/datatablescripts.bundle.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js') }}"></script>
+@endsection
+
 @section('extra_js')
+    {{-- <script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script> --}}
     <script>
         $(function() {
-            //alert('Hello');
+            // alert('Hello');
             //kyc verified  datatable code
             $('#kyc_verified_user').DataTable({
                 "processing": true,
@@ -95,13 +76,12 @@
                     'selectRow': true
                 },
                 "ajax": {
-                    url: "{{ route('admin.kyc.verified-user-ajax') }}",
-                    "type": "POST",
+                    url: "{{ route('admin.payment_ajax_list') }}",
+                    "type": "GET",
                     "data": function(d) {
                         d._token = "{{ csrf_token() }}";
                     },
-                    dataFi
-                    lter: function(data) {
+                    dataFilter: function(data) {
                         var json = jQuery.parseJSON(data);
                         json.recordsTotal = json.recordsTotal;
                         json.recordsFiltered = json.recordsFiltered;
@@ -116,56 +96,52 @@
                         "targets": 0,
                         "name": "id",
                         'searchable': false,
-                        'orderable': true
+                        'orderable': false
                     },
                     {
                         "targets": 1,
-                        "name": "user_id",
+                        "name": "first_name",
                         'searchable': true,
-                        'orderable': false
+                        'orderable': true
                     },
                     {
                         "targets": 2,
-                        "name": "aadhar",
-                        'searchable': false,
-                        'orderable': false
+                        "name": "package_name",
+                        'searchable': true,
+                        'orderable': true
                     },
                     {
                         "targets": 3,
-                        "name": "pan",
+                        "name": "phone",
                         'searchable': false,
                         'orderable': false
                     },
 
                     {
                         "targets": 4,
-                        "name": "is_verify",
+                        "name": "from",
                         'searchable': false,
-                        'orderable': false,
+                        'orderable': false
                     },
-                    // {
-                    //     "targets": 5,
-                    //     "name": "description",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-                    // {
-                    //     "targets": 6,
-                    //     "name": "status",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-                    // {
-                    //     "targets": 7,
-                    //     "name": "action",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
+
+                    {
+                        "targets": 6,
+                        "name": "To",
+                        'searchable': false,
+                        'orderable': false
+                    },
+                    {
+                        "targets": 7,
+                        "name": "status",
+                        'searchable': false,
+                        'orderable': false
+                    },
+
 
 
 
                 ]
-            })
+            });
         })
     </script>
 @endsection

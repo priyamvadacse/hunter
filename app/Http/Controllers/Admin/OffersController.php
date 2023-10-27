@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Validator;
 class OffersController extends Controller
 {
     public function  offerPage()
-
     {
         $data = Offer::all();
+        
         $datapackeg = SubscriptionPackage::all();
         return view('admin.offers.offer', compact('data', 'datapackeg'));
     }
@@ -36,18 +36,19 @@ class OffersController extends Controller
             exit;
         }
 
-        if (isset($request->price)) {
-            $price = $request->price;
+        if (isset($request->percentage)) {
+            $price = $request->percentage;
         }else{
             $price = $request->pr_price;
         }
         $save = new  Offer();
              
-        $save->package_id     = $request->name;
+        $save->package_id   = $request->name;
         $save->type    = $request->type_name;
-        $save->value     = $request->value;
-        $save->start_date     = $request->start_date;
-        $save->expire_date     = $request->Expire_date;
+        $save->price   = $price;
+        $save->start_date    = $request->start_date;
+        $save->expire_date   = $request->Expire_date;
+        // dd($save);
         $save->save();
         
         if ($save) {
@@ -59,17 +60,20 @@ class OffersController extends Controller
     }
 
     public function offerUpdates(Request $request)
-    {
-        
-       
-        
-        // dd($request->all());
+    {     
+        //  dd($request->all());      
+        if(isset($request->percent)){
+            $pr = $request->percent;
+        } else{
+            $pr = $request->price;
+        }                
         $updateoffer = Offer::find($request->id);
         $updateoffer->package_id = $request->package_id;
         $updateoffer->type = $request->type_name;
-        $updateoffer->value = $request->price;
+        $updateoffer->price = $pr;
         $updateoffer->start_date = $request->start_date;
         $updateoffer->expire_date = $request->expire;
+
         $updateoffer->update();
         if ($updateoffer) {
 

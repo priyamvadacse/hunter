@@ -28,11 +28,9 @@
                             <th scope="col">Expiry Date</th>
                             <th scope="col">Action</th>
 
-
                         </tr>
 
                     </thead>
-                
 
                     @foreach ($data as $key => $off)
                         <tr>
@@ -44,19 +42,16 @@
 
                             <td>{{ $getofferdata->package }}</td>
 
-                            <td>{{ $off->value }}</td>
-                            <td>{{ $off->type == '1' ? 'Amount' : 'Percentage' }}</td>
+                            <td>{{ $off->price }}</td>
+                            <td>{{ $off->type == 'am' ? 'Amount' : 'Percentage' }}</td>
                             <td>{{ date('d-m-Y', strtotime($off->start_date)) }}</td>
                             <td>{{ date('d-m-Y', strtotime($off->expire_date)) }}</td>
                             <td> <a data-id="{{ $off->id }}"
                                     class="btn btn-danger btn-sm delete_package zmdi zmdi-delete"></a>
                                 <a href="#" class="btn btn-warning btn-sm edit_package zmdi zmdi-edit"
-                                    data-package_id={{ $off->package_id }}
-                                    data-id={{ $off->id }} 
-                                    data-type_name={{ $off->type }} 
-                                    data-value={{ $off->value }} 
-                                    data-start_date={{ $off->start_date }} 
-                                    data-expire={{ $off->expire_date }}></a>
+                                    data-package_id={{ $off->package_id }} data-id={{ $off->id }}
+                                    data-type_name={{ $off->type }} data-value={{ $off->price }}
+                                    data-start_date={{ $off->start_date }} data-expire={{ $off->expire_date }}></a>
 
                             </td>
 
@@ -103,20 +98,20 @@
                             <select class="form-control show-tick ms select2" data-placeholder="Select" name="type_name"
                                 id="type_duration">
                                 <option value="">Select Type</option>
-                                <option value="0">percentage</option>
-                                <option value="1">Amount</option>
+                                <option value="pr">percentage</option>
+                                <option value="am">Amount</option>
 
                             </select>
                         </div>
 
                         <div class="form-group" id="per_value">
                             <label for="exampleInputEmail1">Discount value</label>
-                            <input type="text" class="form-control" placeholder="Enter percentage" name="value">
+                            <input type="text" class="form-control" placeholder="Enter percentage" name="percentage">
                         </div>
 
                         <div class="form-group" id="price_value">
                             <label for="exampleInputEmail1">Discount price</label>
-                            <input type="text" class="form-control" placeholder="Enter amount" name="value">
+                            <input type="text" class="form-control" placeholder="Enter amount" name="pr_price">
                         </div>
 
                         <div class="form-group ">
@@ -179,20 +174,22 @@
                             <select class="form-control show-tick ms select2" data-placeholder="Select" name="type_name"
                                 id="edit_types_duration">
                                 <option value="">Select Type</option>
-                                <option value="0">percentage</option>
-                                <option value="1">Amount</option>
+                                <option value="pr">percentage</option>
+                                <option value="am">Amount</option>
 
                             </select>
                         </div>
 
                         <div class="form-group" id="edit_per_value">
                             <label for="exampleInputEmail1">Discount value</label>
-                            <input type="text" class="form-control" placeholder="Enter percentage" name="value">
+                            <input type="text" class="form-control" placeholder="Enter percentage" id="per"
+                                name="percent">
                         </div>
 
                         <div class="form-group" id="edit_price_value">
                             <label for="exampleInputEmail1">Discount price</label>
-                            <input type="text" class="form-control" placeholder="Enter amount" name="value">
+                            <input type="text" class="form-control" placeholder="Enter amount" id="amount"
+                                name="price">
                         </div>
                         {{-- <div class="form-group">
                             <label for="exampleInputEmail1">Type</label>
@@ -327,21 +324,33 @@
             $("#edit_price_value").hide();
             $("body").on("click", ".edit_package", function(e) {
                 var package_id = $(this).data('package_id');
+
                 var id = $(this).data('id');
                 var type_name = $(this).data('type_name');
+
                 var value = $(this).data('value');
                 var start_date = $(this).data('start_date');
                 var expire = $(this).data('expire');
-                
-                
+
                 $("#edit_name").val(package_id);
                 $('#edit_id').val(id);
                 $('#edit_types_duration').val(type_name);
-                $('#edit_per_value').val(value);
+                $('#per').val(value);
+                $('#amount').val(value);
                 $('#startdate').val(start_date);
                 $('#expire_date').val(expire);
                 //alert(value)
                 // $('#type').val(type);
+
+                if (type_name === 'pr') {
+                    $("#edit_per_value").show();
+                    $("#edit_price_value").hide();
+                    $('#edit_per_value').val(value);
+                } else {
+                    $("#edit_per_value").hide();
+                    $("#edit_price_value").show();
+                    $('#edit_price_value').val(value);
+                }
 
                 $('#editModal').modal('toggle')
 

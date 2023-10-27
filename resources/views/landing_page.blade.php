@@ -189,19 +189,19 @@
                     </div>
                     <div class="col-lg-8 col-12">
                         <div class="banner__thumb wow fadeInUp" data-wow-duration="1.5s">
-                            <img src="{{ asset('assets/landingpage/images/banner/02.png') }}" alt="banner">
+                            <img src="{{ asset('assets/landingpage/images/banner/02.png') }}" alt="Indian singles">
                             <div class="banner__thumb--shape">
                                 <div class="shapeimg shapeimg__one">
                                     <img src="{{ asset('assets/landingpage/images/banner/shape/home2/01.png') }}"
-                                        alt="dating thumb">
+                                        alt="Dating chat">
                                 </div>
                                 <div class="shapeimg shapeimg__two">
                                     <img src="{{ asset('assets/landingpage/images/banner/shape/home2/02.png') }}"
-                                        alt="dating thumb">
+                                        alt="Find a partner">
                                 </div>
                                 <div class="shapeimg shapeimg__three">
                                     <img src="{{ asset('assets/landingpage/images/banner/shape/home2/03.png') }}"
-                                        alt="dating thumb">
+                                        alt="Dating apps for young adults">
                                 </div>
                             </div>
                         </div>
@@ -244,63 +244,63 @@
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/rag1.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Most Popular Dating App"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/reg2.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Dating For Every Single Person"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/reg3.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Trusted Online Dating Site"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/reg4.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Meet People Of Many Ages"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/reg5.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Free Dating Site In India"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/rag1.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Best Dating App In India"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/reg2.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Free Dating App In India"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/reg3.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Trusted Dating App"></a>
                                                 </div>
                                             </div>
                                             <div class="swiper-slide">
                                                 <div class="ragi__thumb">
                                                     <a href="#"><img
                                                             src="{{ asset('assets/landingpage/images/ragi/reg4.png') }}"
-                                                            alt="dating thumb"></a>
+                                                            alt="Online Dating App Free Chat In India"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -679,8 +679,7 @@
         <div class="container">
             <div class="section__header style-2 text-center wow fadeInUp" data-wow-duration="1.5s">
                 <h2>It All Starts With A Date</h2>
-                <p>Learn from them and try to make it to this board. This will for sure boost you visibility and
-                    increase your chances to find you loved one.</p>
+                <p>Begin your journey with Hunttr! Explore connections, friendships, and love through meaningful dates. Join us today and start something special.</p>
             </div>
             <div class="section__wrapper">
                 <div class="row g-4 justify-content-center row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1">
@@ -689,7 +688,7 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/icon/01.png') }}"
-                                        alt="dating thumb">
+                                        alt="Most Famous Dating App In India">
                                 </div>
                                 <div class="about__content">
                                     <h3><span class="counter" data-to="990960" data-speed="1500"></span></h3>
@@ -703,7 +702,7 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/icon/02.png') }}"
-                                        alt="dating thumb">
+                                        alt="Trusted Online Dating App in India">
                                 </div>
                                 <div class="about__content">
                                     <h3><span class="counter" data-to="628590" data-speed="1500"></span></h3>
@@ -717,7 +716,7 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/icon/03.png') }}"
-                                        alt="dating thumb">
+                                        alt="Popular dating app in India">
                                 </div>
                                 <div class="about__content">
                                     <h3><span class="counter" data-to="314587" data-speed="1500"></span></h3>
@@ -731,7 +730,7 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/icon/04.png') }}"
-                                        alt="dating thumb">
+                                        alt="Popular dating app in Delhi">
                                 </div>
                                 <div class="about__content">
                                     <h3><span class="counter" data-to="102369" data-speed="1500"></span></h3>
@@ -764,7 +763,7 @@
                                 <div class="story__thumb">
                                     <a href="blog.html"><img
                                             src="{{ asset('assets/landingpage/images/story/cp1.png') }}"
-                                            alt="dating thumb"></a>
+                                            alt="Best Dating App in Mumbai"></a>
                                     <span class="member__activity member__activity--ofline">Entertainment</span>
                                 </div>
                                 <div class="story__content">
@@ -774,7 +773,7 @@
                                     <div class="story__content--author">
                                         <div class="story__content--thumb">
                                             <img src="{{ asset('assets/landingpage/images/story/author/user1.png') }}"
-                                                alt="dating thumb">
+                                                alt="Online Dating App in Bangalore">
                                         </div>
                                         <div class="story__content--content">
                                             <h6>Rohit Sharma</h6>
@@ -791,7 +790,7 @@
                                 <div class="story__thumb">
                                     <a href="blog.html"><img
                                             src="{{ asset('assets/landingpage/images/story/cop2.png') }}"
-                                            alt="dating thumb"></a>
+                                            alt="Dating App In India For Free"></a>
                                     <span class="member__activity member__activity--ofline">Love Stories</span>
                                 </div>
                                 <div class="story__content">
@@ -801,7 +800,7 @@
                                     <div class="story__content--author">
                                         <div class="story__content--thumb">
                                             <img src="{{ asset('assets/landingpage/images/story/author/user2.png') }}"
-                                                alt="dating thumb">
+                                                alt="Top Dating App In India 2023">
                                         </div>
                                         <div class="story__content--content">
                                             <h6>Anjali Gupta</h6>
@@ -818,7 +817,7 @@
                                 <div class="story__thumb">
                                     <a href="blog.html"><img
                                             src="{{ asset('assets/landingpage/images/story/cop3.png') }}"
-                                            alt="dating thumb"></a>
+                                            alt="No 1 Dating Site In India"></a>
                                     <span class="member__activity member__activity--ofline">Attraction</span>
                                 </div>
                                 <div class="story__content">
@@ -828,7 +827,7 @@
                                     <div class="story__content--author">
                                         <div class="story__content--thumb">
                                             <img src="{{ asset('assets/landingpage/images/story/author/user3.png') }}"
-                                                alt="dating thumb">
+                                                alt="Most Popular Dating Apps In India">
                                         </div>
                                         <div class="story__content--content">
                                             <h6>Riya </h6>
@@ -867,7 +866,7 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/01.jpg') }}"
-                                        alt="dating thumb">
+                                        alt="Top Free Dating Sites In India">
                                 </div>
                                 <div class="about__content">
                                     <h4>Simple To Use</h4>
@@ -881,7 +880,7 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/02.jpg') }}"
-                                        alt="dating thumb">
+                                        alt="Top 5 Dating Apps In India 2023">
                                 </div>
                                 <div class="about__content">
                                     <h4>Smart Matching</h4>
@@ -895,7 +894,7 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/03.jpg') }}"
-                                        alt="dating thumb">
+                                        alt="Free Online Dating App In India">
                                 </div>
                                 <div class="about__content">
                                     <h4>Filter Very Fast</h4>
@@ -909,11 +908,11 @@
                             <div class="about__inner">
                                 <div class="about__thumb">
                                     <img src="{{ asset('assets/landingpage/images/about/04.jpg') }}"
-                                        alt="dating thumb">
+                                        alt="Real Dating App In India">
                                 </div>
                                 <div class="about__content">
                                     <h4>Cool Community</h4>
-                                    <p>BuddyPress network is full of cool members.</p>
+                                    <p>Join Hunttr: Where Connections Thrive!</p>
                                 </div>
                             </div>
                         </div>
@@ -940,7 +939,7 @@
                             <div class="work__inner">
                                 <div class="work__thumb">
                                     <img src="{{ asset('assets/landingpage/images/work/09.png') }}"
-                                        alt="dating thumb">
+                                        alt="Best Dating Apps India 2023">
                                 </div>
                                 <div class="work__content">
                                     <h3>Trust And Safety</h3>
@@ -955,7 +954,7 @@
                             <div class="work__inner">
                                 <div class="work__thumb">
                                     <img src="{{ asset('assets/landingpage/images/work/10.png') }}"
-                                        alt="dating thumb">
+                                        alt="Real Dating Sites In India">
                                 </div>
                                 <div class="work__content">
                                     <h3>Simple Membership</h3>
@@ -989,10 +988,10 @@
                                 <ul class="justify-content-center">
                                     <li><a href="#"><img
                                                 src="{{ asset('assets/landingpage/images/app/01.jpg') }}"
-                                                alt="dating thumb"></a></li>
+                                                alt="Best Online Dating App In India"></a></li>
                                     <li><a href="#"><img
                                                 src="{{ asset('assets/landingpage/images/app/02.jpg') }}"
-                                                alt="dating thumb"></a></li>
+                                                alt="Local Dating App India"></a></li>
                                 </ul>
                             </div>
                         </div>

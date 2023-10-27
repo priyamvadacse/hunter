@@ -22,45 +22,13 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Aadhar</th>
-                            <th scope="col">Pan</th>
-                            <th scope="col">Isverified</th>
-
-
-
+                            <th scope="col">Image</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Status</th>
                         </tr>
-
-
                     </thead>
-
-
-
                     <tbody>
-
-                        <tr>
-                            <td>1</td>
-                            <td>Vikas</td>
-                            <td><img src="{{asset('front/images/kyc/aadhar.jpg')}}" alt="aadhar"></td>
-                            <td><img src="{{asset('front/images/kyc/pan.jpg')}}" alt="Pan"></td>
-                            <td>Verified</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Ram</td>
-                            <td><img src="{{asset('front/images/kyc/aadhar1.jpg')}}" alt="dfgh"></td>
-                            <td><img src="{{asset('front/images/kyc/pan1.jpg')}}" alt="pan"></td>
-                            <td>Verified</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Himanshu</td>
-                            <td><img src="{{asset('front/images/kyc/aadhar.jpg')}}" alt="aadher"></td>
-                            <td><img src="{{asset('front/images/kyc/pan.jpg')}}" alt="pan"></td>
-                            <td>Verified</td>
-                        </tr>
-
-
 
                     </tbody>
                 </table>
@@ -69,11 +37,23 @@
     </section>
 @endsection
 
+
+@section('libraries')
+<!-- Jquery DataTable Plugin Js -->
+<script src="{{asset('assets/bundles/datatablescripts.bundle.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.flash.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js')}}"></script>
+@endsection
+
 @section('extra_js')
+
     <script>
         $(function() {
-            //alert('Hello');
-            //kyc verified  datatable code
+            
             $('#kyc_verified_user').DataTable({
                 "processing": true,
                 pageLength: 10,
@@ -83,13 +63,9 @@
                     'selectRow': true
                 },
                 "ajax": {
-                    url: "{{ route('admin.kyc.verified-user-ajax') }}",
-                    "type": "POST",
-                    "data": function(d) {
-                        d._token = "{{ csrf_token() }}";
-                    },
-                    dataFi
-                    lter: function(data) {
+                    url: "{{ route('admin.kyc.verified-user-ajax') }}",                    
+                   
+                    dataFilter: function(data) {
                         var json = jQuery.parseJSON(data);
                         json.recordsTotal = json.recordsTotal;
                         json.recordsFiltered = json.recordsFiltered;
@@ -108,49 +84,36 @@
                     },
                     {
                         "targets": 1,
-                        "name": "user_id",
+                        "name": "first_name",
                         'searchable': true,
                         'orderable': false
                     },
                     {
                         "targets": 2,
-                        "name": "aadhar",
+                        "name": "image",
                         'searchable': false,
                         'orderable': false
                     },
                     {
                         "targets": 3,
-                        "name": "pan",
-                        'searchable': false,
-                        'orderable': false
+                        "name": "email",
+                        'searchable': true,
+                        'orderable': true
                     },
 
                     {
                         "targets": 4,
-                        "name": "is_verify",
+                        "name": "phone",
+                        'searchable': true,
+                        'orderable': true,
+                    },
+                  
+                    {
+                        "targets": 5,
+                        "name": "status",
                         'searchable': false,
                         'orderable': false,
                     },
-                    // {
-                    //     "targets": 5,
-                    //     "name": "description",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-                    // {
-                    //     "targets": 6,
-                    //     "name": "status",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-                    // {
-                    //     "targets": 7,
-                    //     "name": "action",
-                    //     'searchable': false,
-                    //     'orderable': false
-                    // },
-
-
 
                 ]
             })

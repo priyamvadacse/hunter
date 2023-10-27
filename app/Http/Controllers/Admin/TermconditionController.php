@@ -14,13 +14,12 @@ class TermconditionController extends Controller
     {
         $getdata = Termcondition::first();
 
-        return view('admin.term_condition.term_condition',compact('getdata'));
+        return view('admin.term_condition.term_condition', compact('getdata'));
     }
 
-public function saveTermcondition(Request $request)
-{
-    
-   
+    public function saveTermcondition(Request $request)
+    {
+
         $rules = [
 
             'termcondition' => 'required',
@@ -29,25 +28,27 @@ public function saveTermcondition(Request $request)
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            
+
             return response()->json(array('status' => false, 'msg' => $validator->errors()->first()));
             exit;
         }
 
         $get = Termcondition::find($request->id);
+        if(isset($get)){
 
-        $get->termcondition = $request->termcondition;
-        $get->update();
-
-        if($get){
-            return response()->json(array('status' => true, 'msg' => 'Successfuly Updated', 'location' => route('admin.termcondition')));
-
+            $get->termcondition = $request->termcondition;        
+            $get->update();
         }else{
-            return response()->json(array('status' => true, 'msg' => 'Something went wrong , please try again'));
-        }
-
+            $get =new Termcondition();
+            $get->termcondition = $request->termcondition;        
+            $get->save();
         }
     
- 
-}
 
+        if ($get) {
+            return response()->json(array('status' => true, 'msg' => 'Successfuly Updated', 'location' => route('admin.termcondition')));
+        } else {
+            return response()->json(array('status' => true, 'msg' => 'Something went wrong , please try again'));
+        }
+    }
+}

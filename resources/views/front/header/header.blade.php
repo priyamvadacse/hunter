@@ -5,18 +5,21 @@
                 <div class="header__top--left">
                     <ul>
                         <li>
-                            <i class="fa-solid fa-phone"></i> <span>+91-123-4567 658</span>
+                            {{-- <i class="fa-solid fa-phone"></i> <span> +91-9911020091</span> --}}
                         </li>
                         <li>
                             <i class="fa-solid fa-location-dot"></i> India
                         </li>
                     </ul>
                 </div>
+                @php
+                    $getdata =  App\Models\Setting::first();
+                @endphp
                 <div class="header__top--right">
                     <ul>
-                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i> Facebook</a></li>
-                        <li><a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-                        <li><a href="#"><i class="fa-brands fa-youtube"></i> Youtube</a></li>
+                        <li><a href="{{$getdata->facebook_link}}" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a></li>
+                        <li><a href="{{$getdata->instagram_link}}" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                        <li><a href="{{$getdata->youtube_link}}" target=”_blank”><i class="fa-brands fa-youtube"></i> Youtube</a></li>
                     </ul>
                 </div>
             </div>
@@ -25,7 +28,7 @@
     <div class="header__bottom">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index-2.html"><img src="{{asset('front/assets/images/logo/logo2.png')}}" alt="logo')}}"></a>
+                <a class="navbar-brand" href="{{route('landing.page')}}"><img src="{{asset('front/assets/images/logo/FotoJet2.png')}}" alt="logo')}}" ></a>
                 <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                     aria-label="Toggle navigation">
